@@ -4,10 +4,15 @@ import 'package:flutter_structure_web_app/core/theme/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MenuOption extends StatelessWidget {
-  const MenuOption({Key? key, required this.item, required this.onTap})
+  const MenuOption(
+      {Key? key,
+      required this.item,
+      required this.onTap,
+      required this.isCollapsed})
       : super(key: key);
   final MenuOptionDomain item;
   final void Function()? onTap;
+  final bool isCollapsed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,37 +30,53 @@ class MenuOption extends StatelessWidget {
               color: item.isActive!
                   ? AppColors.primaryLightActiveColor
                   : Colors.transparent),
-          child: Row(
-            children: [
-              item.isChild!
-                  ? const SizedBox(
-                      width: 18.0,
-                    )
-                  : Icon(
-                      item.icon,
-                      color: item.isActive!
-                          ? AppColors.primaryDarkColor
-                          : AppColors.grayBlueColor,
-                      size: 18.0,
+          child: !isCollapsed
+              ? Row(
+                  children: [
+                    item.isChild!
+                        ? const SizedBox(
+                            width: 18.0,
+                          )
+                        : Icon(
+                            item.icon,
+                            color: item.isActive!
+                                ? AppColors.primaryDarkColor
+                                : AppColors.grayBlueColor,
+                            size: 16.0,
+                          ),
+                    const SizedBox(width: 9),
+                    Text(
+                      item.nameOption ?? "",
+                      style: TextStyle(
+                          fontSize: 12.8,
+                          color: item.isActive!
+                              ? AppColors.primaryDarkColor
+                              : AppColors.grayColor,
+                          fontWeight: FontWeight.w600),
                     ),
-              const SizedBox(width: 9),
-              Text(
-                item.nameOption ?? "",
-                style: TextStyle(
-                    fontSize: 14.0,
-                    color: item.isActive!
-                        ? AppColors.primaryDarkColor
-                        : AppColors.grayColor,
-                    fontWeight: FontWeight.w600),
-              ),
-              const Spacer(),
-              item.isDesplegable!
-                  ? item.isDesplegated!
-                      ? const Icon(Iconsax.arrow_up_2)
-                      : const Icon(Iconsax.arrow_down_1)
-                  : const SizedBox()
-            ],
-          ),
+                    const Spacer(),
+                    item.isDesplegable!
+                        ? item.isDesplegated!
+                            ? const Icon(
+                                Iconsax.arrow_down_1,
+                                color: AppColors.blackColor,
+                                size: 16.0,
+                              )
+                            : const Icon(
+                                Iconsax.arrow_right_3,
+                                color: AppColors.blackColor,
+                                size: 16.0,
+                              )
+                        : const SizedBox()
+                  ],
+                )
+              : Icon(
+                  item.icon,
+                  color: item.isActive!
+                      ? AppColors.primaryDarkColor
+                      : AppColors.grayBlueColor,
+                  size: 16.0,
+                ),
         ),
       ),
     );

@@ -9,6 +9,7 @@ class AppTheme {
   AppTheme({required this.isDarkmode});
 
   ThemeData getTheme() => ThemeData(
+        fontFamily: 'Montserrat',
         useMaterial3: true,
         colorSchemeSeed: seedColor,
         brightness: isDarkmode ? Brightness.dark : Brightness.light,

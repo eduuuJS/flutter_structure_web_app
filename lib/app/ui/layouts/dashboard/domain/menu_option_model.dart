@@ -44,6 +44,18 @@ class MenuOptionDomain {
         children: children);
   }
 
+  MenuOptionDomain collapse() {
+    return MenuOptionDomain(
+        route: route,
+        nameOption: nameOption,
+        icon: icon,
+        isActive: isActive,
+        isDesplegable: isDesplegable,
+        isDesplegated: false,
+        isChild: isChild,
+        children: children);
+  }
+
   MenuOptionDomain setChildren(List<MenuOptionDomain> list) {
     return MenuOptionDomain(
         route: route,

@@ -8,6 +8,28 @@ final List<Map<String, dynamic>> fakeMenuResponse = [
     "icon": "home",
   },
   {
+    "route": "/dashboard/security",
+    "nameOption": "Security",
+    "icon": "security",
+    "children": [
+      {
+        "route": "/dashboard/security/users",
+        "nameOption": "Users",
+        "icon": "",
+      },
+      {
+        "route": "/dashboard/security/profiles",
+        "nameOption": "Profiles",
+        "icon": "",
+      },
+      {
+        "route": "/dashboard/security/parameters",
+        "nameOption": "Parameters",
+        "icon": "",
+      },
+    ]
+  },
+  {
     "route": "/dashboard/sales",
     "nameOption": "Sales",
     "icon": "sales",
@@ -21,30 +43,6 @@ final List<Map<String, dynamic>> fakeMenuResponse = [
         "route": "/dashboard/sales/historySales",
         "nameOption": "History Sales",
         "icon": "",
-        "children": [
-          {
-            "route": "/h1",
-            "nameOption": "H1",
-            "icon": "",
-          },
-          {
-            "route": "h2",
-            "nameOption": "H2",
-            "icon": "",
-            "children": [
-              {
-                "route": "/dashboard/h21",
-                "nameOption": "H21",
-                "icon": "",
-              },
-              {
-                "route": "/dashboard/h22",
-                "nameOption": "H22",
-                "icon": "",
-              },
-            ]
-          },
-        ]
       },
     ]
   },
@@ -62,9 +60,12 @@ final List<Map<String, dynamic>> fakeMenuResponse = [
 
 final Map<String, IconData> iconsMenu = {
   "home": Iconsax.home,
+  "security": Iconsax.security,
   "sales": Iconsax.shop_add,
   "user": Iconsax.user,
   "settings": Iconsax.setting,
   "history": Iconsax.language_circle,
+  "profiles": Iconsax.profile,
+  "parameters": Iconsax.code,
   "": Iconsax.activity
 };

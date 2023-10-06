@@ -17,6 +17,7 @@ class MenuListState extends _$MenuListState {
 
   void chooseAction(String route, bool isDesplegable) {
     if (isDesplegable) {
+      ref.watch(collapsedStateMenuProvider.notifier).desplegate();
       initList = setDesplegated(route, initList);
     } else {
       NavigationService.replaceTo(route);
@@ -51,6 +52,13 @@ class MenuListState extends _$MenuListState {
     return generalList;
   }
 
+  void collapseAll() {
+    initList = initList.map((e) {
+      return e.collapse();
+    }).toList();
+    state = initList;
+  }
+
   List<MenuOptionDomain> generateList(List<MenuOptionDomain> generalList) {
     List<MenuOptionDomain> lister = [];
     for (var element in generalList) {
@@ -60,5 +68,24 @@ class MenuListState extends _$MenuListState {
       }
     }
     return lister;
+  }
+}
+
+@riverpod
+class CollapsedStateMenu extends _$CollapsedStateMenu {
+  @override
+  bool build() {
+    return false;
+  }
+
+  void switchState() {
+    state = !state;
+    if (state) {
+      ref.watch(menuListStateProvider.notifier).collapseAll();
+    }
+  }
+
+  void desplegate() {
+    state = false;
   }
 }

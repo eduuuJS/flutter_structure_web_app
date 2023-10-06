@@ -4,11 +4,13 @@ import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/presentation/
 import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/presentation/widgets/menu_option.dart';
 import 'package:flutter_structure_web_app/core/theme/app_colors.dart';
 
-class MenuDrawer extends StatelessWidget {
+class MenuDrawer extends ConsumerWidget {
   const MenuDrawer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listOptions = ref.watch(menuListStateProvider);
+    final isCollapsed = ref.watch(collapsedStateMenuProvider);
     return Drawer(
       shape: const Border(),
       elevation: 3.0,
@@ -21,13 +23,32 @@ class MenuDrawer extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                    height: 80.0,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/img/logo_sidebar.jpeg"),
-                            fit: BoxFit.fitWidth)),
+                  child: GestureDetector(
+                    onTap: () {
+                      ref
+                          .read(collapsedStateMenuProvider.notifier)
+                          .switchState();
+                    },
+                    child: isCollapsed
+                        ? Container(
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            height: 80.0,
+                            child: const Icon(
+                              Icons.menu,
+                              color: AppColors.grayBlueColor,
+                            ),
+                          )
+                        : Container(
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            height: 80.0,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/img/logo_sidebar.jpeg"),
+                                    fit: BoxFit.fitWidth)),
+                          ),
                   ),
                 ),
               ],
@@ -35,25 +56,24 @@ class MenuDrawer extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            Expanded(child: Consumer(builder: (context, ref, _) {
-              final listOptions = ref.watch(menuListStateProvider);
-              return ListView.separated(
-                itemCount: listOptions.length,
-                itemBuilder: (_, index) {
-                  final item = listOptions[index];
-                  return MenuOption(
-                    item: item,
-                    onTap: () {
-                      ref.read(menuListStateProvider.notifier).chooseAction(
-                          item.route ?? "", item.isDesplegable ?? false);
-                    },
-                  );
-                },
-                separatorBuilder: (_, index) {
-                  return const SizedBox(height: 7.0);
-                },
-              );
-            }))
+            Expanded(
+                child: ListView.separated(
+              itemCount: listOptions.length,
+              itemBuilder: (_, index) {
+                final item = listOptions[index];
+                return MenuOption(
+                  item: item,
+                  onTap: () {
+                    ref.read(menuListStateProvider.notifier).chooseAction(
+                        item.route ?? "", item.isDesplegable ?? false);
+                  },
+                  isCollapsed: isCollapsed,
+                );
+              },
+              separatorBuilder: (_, index) {
+                return const SizedBox(height: 7.0);
+              },
+            ))
             // Expanded(
             //   child: Obx(
             //     () => ListView.builder(
