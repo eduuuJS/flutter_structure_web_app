@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/domain/menu_option_model.dart';
 import 'package:flutter_structure_web_app/core/theme/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
 
-class MenuOption extends StatelessWidget {
+class MenuOption extends ConsumerWidget {
   const MenuOption(
       {Key? key,
       required this.item,
@@ -15,12 +16,13 @@ class MenuOption extends StatelessWidget {
   final bool isCollapsed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(colorsStateProvider);
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        hoverColor: AppColors.primaryLightHoverColor,
-        highlightColor: AppColors.primaryLightActiveColor,
+        hoverColor: colors[ColorsName.boxHover],
+        highlightColor: colors[ColorsName.boxActive],
         borderRadius: BorderRadius.circular(8.0),
         onTap: onTap,
         child: Container(
@@ -28,7 +30,7 @@ class MenuOption extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               color: item.isActive!
-                  ? AppColors.primaryLightActiveColor
+                  ? colors[ColorsName.boxActive]
                   : Colors.transparent),
           child: !isCollapsed
               ? Row(
@@ -40,8 +42,8 @@ class MenuOption extends StatelessWidget {
                         : Icon(
                             item.icon,
                             color: item.isActive!
-                                ? AppColors.primaryDarkColor
-                                : AppColors.grayBlueColor,
+                                ? colors[ColorsName.primaryDarkColor]
+                                : colors[ColorsName.grayBlueColor],
                             size: 16.0,
                           ),
                     const SizedBox(width: 9),
@@ -50,21 +52,21 @@ class MenuOption extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12.8,
                           color: item.isActive!
-                              ? AppColors.primaryDarkColor
-                              : AppColors.grayColor,
+                              ? colors[ColorsName.mainTextActive]
+                              : colors[ColorsName.mainTextColor],
                           fontWeight: FontWeight.w600),
                     ),
                     const Spacer(),
                     item.isDesplegable!
                         ? item.isDesplegated!
-                            ? const Icon(
+                            ? Icon(
                                 Iconsax.arrow_down_1,
-                                color: AppColors.blackColor,
+                                color: colors[ColorsName.mainIcon],
                                 size: 16.0,
                               )
-                            : const Icon(
+                            : Icon(
                                 Iconsax.arrow_right_3,
-                                color: AppColors.blackColor,
+                                color: colors[ColorsName.mainIcon],
                                 size: 16.0,
                               )
                         : const SizedBox()
@@ -73,8 +75,8 @@ class MenuOption extends StatelessWidget {
               : Icon(
                   item.icon,
                   color: item.isActive!
-                      ? AppColors.primaryDarkColor
-                      : AppColors.grayBlueColor,
+                      ? colors[ColorsName.primaryDarkColor]
+                      : colors[ColorsName.grayBlueColor],
                   size: 16.0,
                 ),
         ),

@@ -18,7 +18,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeState = ref.watch(themeStateProvider);
+    final isDarkTheme = ref.watch(themeStateProvider);
     return MaterialApp(
       title: 'Flutter Structure WebApp',
       debugShowCheckedModeBanner: false,
@@ -29,7 +29,7 @@ class MyApp extends ConsumerWidget {
       builder: (_, child) {
         return DashboardLayout(child: child ?? const SizedBox());
       },
-      theme: AppTheme(isDarkmode: themeState == ThemeDataType.dark).getTheme(),
+      theme: AppTheme(isDarkmode: isDarkTheme).getTheme(),
     );
   }
 }

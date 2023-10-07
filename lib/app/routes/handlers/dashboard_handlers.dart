@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class DashboardHandlers {
   static Handler dashboard = Handler(handlerFunc: (context, params) {
-    return const Text("En el dash...");
+    return const SizedBox();
   });
 
   static Handler users = Handler(handlerFunc: (context, params) {
-    return const Text("Dash usuarios");
+    return const SizedBox();
   });
 
   static Handler settings = Handler(handlerFunc: (context, params) {
-    return const Text("Settings");
+    return const SizedBox();
   });
 }

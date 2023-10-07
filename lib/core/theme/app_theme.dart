@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_structure_web_app/core/theme/app_colors.dart';
 
-const seedColor = AppColors.primaryColor;
+const seedColor = Colors.white;
 
 class AppTheme {
   final bool isDarkmode;
