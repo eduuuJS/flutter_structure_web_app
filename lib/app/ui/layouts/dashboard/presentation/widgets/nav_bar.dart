@@ -16,6 +16,7 @@ class NavBar extends ConsumerWidget {
     //States
     final colors = ref.watch(colorsStateProvider);
     final isDarkTheme = ref.watch(themeStateProvider);
+    final title = ref.watch(titleDashboardStateProvider);
 
     //Elements
     Widget iconMenu = GestureDetector(
@@ -29,7 +30,7 @@ class NavBar extends ConsumerWidget {
       ),
     );
     Widget titleText = Text(
-      "Dashboard",
+      title,
       style: TextStyle(
           color: colors[ColorsName.mainTextColor],
           fontSize: 20,

@@ -20,7 +20,6 @@ class DashboardLayout extends ConsumerWidget {
     return Scaffold(
       drawer: const MenuDrawer(),
       key: GlobalKey(),
-      // backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Container(
           height: double.infinity,

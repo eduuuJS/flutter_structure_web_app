@@ -1,12 +1,32 @@
 abstract class AppRoutes {
-  static String rootRoute = '/';
+  static const String rootRoute = '/';
 
   // Auth Router
-  static String loginRoute = '/auth/login';
-  static String registerRoute = '/auth/register';
+  static const String loginRoute = '/auth/login';
+  static const String registerRoute = '/auth/register';
 
   // Dashboard
-  static String dashboardRoute = '/dashboard';
-  static String usersRoute = '/dashboard/users';
-  static String setitngsRoute = '/dashboard/settings';
+  static const String dashboardRoute = '/dashboard';
+  static const String usersRoute = '/dashboard/users';
+  static const String settingsRoute = '/dashboard/settings';
+}
+
+abstract class AppTitles {
+  // Dashboard
+  static String dashboardRoute = 'Flutter Web';
+  static String usersRoute = 'Users';
+  static String settingsRoute = 'Settings';
+
+  static String getAppTitle(String route) {
+    switch (route) {
+      case AppRoutes.dashboardRoute:
+        return dashboardRoute;
+      case AppRoutes.usersRoute:
+        return usersRoute;
+      case AppRoutes.settingsRoute:
+        return settingsRoute;
+      default:
+        return "Default";
+    }
+  }
 }

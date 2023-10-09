@@ -9,7 +9,6 @@ import 'package:flutter_structure_web_app/core/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  AppRouterConfig.configureRoutes();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -18,16 +17,19 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(appRouterConfigStateProvider);
     final isDarkTheme = ref.watch(themeStateProvider);
     return MaterialApp(
       title: 'Flutter Structure WebApp',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.rootRoute,
-      onGenerateRoute: AppRouterConfig.router.generator,
+      initialRoute: AppRoutes.dashboardRoute,
       navigatorKey: NavigationService.navigatorKey,
+      onGenerateRoute: router.generator,
       // scaffoldMessengerKey: NotificationsService.messengerKey,
       builder: (_, child) {
-        return DashboardLayout(child: child ?? const SizedBox());
+        return DashboardLayout(
+          child: child ?? const SizedBox(),
+        );
       },
       theme: AppTheme(isDarkmode: isDarkTheme).getTheme(),
     );

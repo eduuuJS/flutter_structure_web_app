@@ -1,3 +1,4 @@
+import 'package:flutter_structure_web_app/app/routes/app_routes.dart';
 import 'package:flutter_structure_web_app/app/routes/navigation_service.dart';
 import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/data/repositories/menu_options_repository.dart';
 import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/domain/menu_option_model.dart';
@@ -21,6 +22,16 @@ class MenuListState extends _$MenuListState {
       initList = setDesplegated(route, initList);
     } else {
       NavigationService.replaceTo(route);
+      initList = setActive(route, initList);
+    }
+    state = generateList(initList);
+  }
+
+  void chooseActionExt(String route, bool isDesplegable) {
+    if (isDesplegable) {
+      ref.watch(collapsedStateMenuProvider.notifier).desplegate();
+      initList = setDesplegated(route, initList);
+    } else {
       initList = setActive(route, initList);
     }
     state = generateList(initList);
@@ -88,4 +99,27 @@ class CollapsedStateMenu extends _$CollapsedStateMenu {
   void desplegate() {
     state = false;
   }
+}
+
+@riverpod
+class TitleDashboardState extends _$TitleDashboardState {
+  @override
+  String build() {
+    return "Home";
+  }
+
+  void setTitle(String title) {
+    state = title;
+  }
+}
+
+@riverpod
+Future<void> seterDashboardTitle(
+    SeterDashboardTitleRef ref, String route) async {
+  Future.delayed(Duration.zero, () {
+    ref
+        .watch(titleDashboardStateProvider.notifier)
+        .setTitle(AppTitles.getAppTitle(route));
+    ref.watch(menuListStateProvider.notifier).chooseActionExt(route, false);
+  });
 }

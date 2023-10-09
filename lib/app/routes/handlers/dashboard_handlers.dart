@@ -1,16 +1,19 @@
 import 'package:fluro/fluro.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/features/home_view.dart';
+import 'package:flutter_structure_web_app/app/ui/layouts/dashboard/features/settings_view.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'dashboard_handlers.g.dart';
 
-class DashboardHandlers {
-  static Handler dashboard = Handler(handlerFunc: (context, params) {
-    return const SizedBox();
+@riverpod
+Handler dashBoardHandler(DashBoardHandlerRef ref) {
+  return Handler(handlerFunc: (context, params) {
+    return const HomeView();
   });
+}
 
-  static Handler users = Handler(handlerFunc: (context, params) {
-    return const SizedBox();
-  });
-
-  static Handler settings = Handler(handlerFunc: (context, params) {
-    return const SizedBox();
+@riverpod
+Handler settingsHandler(SettingsHandlerRef ref) {
+  return Handler(handlerFunc: (context, params) {
+    return const SettingsView();
   });
 }
